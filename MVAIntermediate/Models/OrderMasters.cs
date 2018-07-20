@@ -10,5 +10,7 @@ namespace MVAIntermediate.Models
         public string Description { get; set; }
         public DateTime OrderDate { get; set; }
         public string WaiterName { get; set; }
+        public List<OrderDetails> OrderDetails { get; set; }
+
     }
 }

@@ -43,6 +43,10 @@ namespace MVAIntermediate.Data
                 entity.Property(e => e.OrderNo).HasColumnName("Order_No");
 
                 entity.Property(e => e.Qty).HasColumnName("QTY");
+
+                entity.HasOne(p => p.OrderMaster)
+                .WithMany(b => b.OrderDetails)
+                .HasForeignKey(p => p.OrderNo);
             });
 
             builder.Entity<OrderMasters>(entity =>
@@ -71,6 +75,8 @@ namespace MVAIntermediate.Data
                     .HasColumnName("Waiter_Name")
                     .HasMaxLength(20)
                     .IsUnicode(false);
+
+                entity.HasMany(b => b.OrderDetails);
             });
         }
     }

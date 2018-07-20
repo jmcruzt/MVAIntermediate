@@ -4,14 +4,16 @@ using MVAIntermediate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVAIntermediate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180719160433_orders")]
+    partial class orders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,7 +200,7 @@ namespace MVAIntermediate.Data.Migrations
                         .HasMaxLength(200)
                         .IsUnicode(false);
 
-                    b.Property<int>("OrderNo")
+                    b.Property<int?>("OrderNo")
                         .HasColumnName("Order_No");
 
                     b.Property<int>("Price");
@@ -207,8 +209,6 @@ namespace MVAIntermediate.Data.Migrations
                         .HasColumnName("QTY");
 
                     b.HasKey("OrderDetailNo");
-
-                    b.HasIndex("OrderNo");
 
                     b.ToTable("OrderDetails");
                 });
@@ -288,14 +288,6 @@ namespace MVAIntermediate.Data.Migrations
                     b.HasOne("MVAIntermediate.Data.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MVAIntermediate.Models.OrderDetails", b =>
-                {
-                    b.HasOne("MVAIntermediate.Models.OrderMasters", "OrderMaster")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderNo")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
